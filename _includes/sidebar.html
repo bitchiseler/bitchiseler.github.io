@@ -1,0 +1,41 @@
+<div class="sidebar">
+
+
+    {% assign current_url = page.url | split: '/' %}
+    {% assign category = current_url[2] %}
+
+    {% if page.url == "/" %}
+    <!-- HOME VIEW: List all files grouped by category -->
+    <div class="file-list">
+        {% assign categories = "documents,articles,app,personal" | split: "," %}
+        {% for cat in categories %}
+        <div class="sidebar-header" style="font-size: 0.8em; margin-top: 10px; color: var(--accent-color);">
+            {{ cat | upcase }}
+        </div>
+        {% for item in site.contents %}
+        {% if item.category == cat %}
+        <a href="{{ site.baseurl }}{{ item.url }}" class="file-item">
+            <span style="margin-right: 5px;">📄</span> {{ item.title }}
+        </a>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <!-- CONTEXT SPECIFIC VIEW -->
+    <div class="sidebar-header" style="font-size: 0.8em; margin-top: 10px;">
+        {{ category | upcase }}
+    </div>
+
+    <div class="file-list">
+        {% for item in site.contents %}
+        {% if item.url contains category %}
+        <a href="{{ site.baseurl }}{{ item.url }}" class="file-item {% if item.url == page.url %}active{% endif %}">
+            <span style="margin-right: 5px;">📄</span> {{ item.title }}
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

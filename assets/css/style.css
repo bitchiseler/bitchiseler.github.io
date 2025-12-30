@@ -1,0 +1,284 @@
+:root {
+  --activity-bar-bg: #333333;
+  --activity-bar-fg: #858585;
+  --sidebar-bg: #252526;
+  --sidebar-fg: #cccccc;
+  --editor-bg: #1e1e1e;
+  --editor-fg: #d4d4d4;
+  --border-color: #444444;
+  --accent-color: #0e639c;
+  /* VS Code Blue */
+  --hover-bg: #2a2d2e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  background-color: var(--editor-bg);
+  color: var(--editor-fg);
+  overflow: hidden;
+}
+
+/* Mobile Header */
+.mobile-header {
+  display: none;
+  height: 50px;
+  background-color: #3c3c3c;
+  color: white;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.menu-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+/* Activity Bar */
+.activity-bar {
+  width: 50px;
+  background-color: var(--activity-bar-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  flex-shrink: 0;
+}
+
+.activity-bar-item {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--activity-bar-fg);
+  opacity: 0.6;
+}
+
+.activity-bar-item.active,
+.activity-bar-item:hover {
+  color: white;
+  opacity: 1;
+}
+
+.activity-bar-item.active {
+  border-left: 2px solid white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  padding: 10px 20px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.file-item {
+  padding: 5px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: var(--sidebar-fg);
+  text-decoration: none;
+}
+
+.file-item:hover {
+  background-color: var(--hover-bg);
+}
+
+.file-item.active {
+  background-color: #37373d;
+  color: white;
+}
+
+/* Main Area */
+.main-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tabs-bar {
+  height: 35px;
+  background-color: #2d2d2d;
+  display: flex;
+  align-items: center;
+}
+
+.tab {
+  padding: 8px 15px;
+  background-color: var(--editor-bg);
+  border-right: 1px solid var(--border-color);
+  font-size: 0.9em;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.editor-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* .panel-column and .panel-header styles below */
+
+
+.panel-header {
+  height: 35px;
+  /* Same as tabs-bar height */
+  background-color: #2d2d2d;
+  /* Header background similar to tab bar */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 0.9em;
+  border-bottom: 1px solid var(--border-color);
+  /* Separator */
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+
+/* Specific adjustment for active tab look if needed, but basic header is fine */
+
+
+.toc-panel {
+  width: 200px;
+  border-right: 1px solid var(--border-color);
+  padding: 10px 20px;
+  overflow-y: auto;
+  font-size: 0.9em;
+  background-color: var(--editor-bg);
+  flex-shrink: 0;
+}
+
+.toc-panel ul {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.toc-panel li {
+  margin-bottom: 5px;
+}
+
+.toc-panel a {
+  color: var(--editor-fg);
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.toc-panel a:hover {
+  opacity: 1;
+  color: var(--accent-color);
+}
+
+.content-panel {
+  flex: 1;
+  padding: 20px 40px;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.content-panel h1,
+.content-panel h2,
+.content-panel h3 {
+  color: #dcdcdc;
+}
+
+.content-panel a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .mobile-header {
+    display: flex;
+  }
+
+  .sidebar-container {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    /* Activity bar + Sidebar width */
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-container.open {
+    transform: translateX(0);
+  }
+
+  .main-area {
+    margin-top: 50px;
+    width: 100%;
+  }
+
+  .toc-panel {
+    display: none;
+    /* Hide TOC on mobile */
+  }
+
+  .content-panel {
+    padding: 10px 20px;
+  }
+}

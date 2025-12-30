@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="menu-toggle" onclick="toggleMobileMenu()">=</div>
+        <div style="margin-left: 15px; font-weight: bold;">VS Code Theme</div>
+    </div>
+
+    <div id="sidebar-container" class="sidebar-container">
+        {% include activity_bar.html %}
+        {% include sidebar.html %}
+    </div>
+
+    <div class="main-area">
+
+        <div class="editor-container">
+            <!-- Top Header -->
+            <div class="panel-header">{{ page.title }}</div>
+
+            <!-- Main Body: TOC | Content -->
+            <div class="editor-body">
+                <div class="toc-panel" id="toc-panel">
+                    <div style="font-weight: bold; margin-bottom: 10px; font-size: 0.8em; padding-top: 10px;">OUTLINE
+                    </div>
+                    <!-- TOC Content will be injected here or manually placed -->
+                    <!-- Simple TOC generation for Jekyll (using kramdown auto ids) -->
+                    <script>
+                        // Basic JS to generate TOC from headers
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const content = document.querySelector('.content-panel');
+                            const toc = document.getElementById('toc-panel');
+                            // Exclude h1, only nested h2 and h3
+                            const headers = content.querySelectorAll('h2, h3');
+                            const ul = document.createElement('ul');
+                            
+                            // Track the last h2 li to append h3s into it
+                            let lastH2Li = null;
+                            let subUl = null;
+
+                            headers.forEach(header => {
+                                if (!header.id) return;
+
+                                const li = document.createElement('li');
+                                const a = document.createElement('a');
+                                a.href = '#' + header.id;
+                                a.textContent = header.textContent;
+                                li.appendChild(a);
+
+                                if (header.tagName.toLowerCase() === 'h2') {
+                                    ul.appendChild(li);
+                                    lastH2Li = li;
+                                    subUl = null; // Reset sub-list for new H2
+                                } else if (header.tagName.toLowerCase() === 'h3') {
+                                    // If we have a preceding H2, append H3 to a sub-list
+                                    if (lastH2Li) {
+                                        if (!subUl) {
+                                            subUl = document.createElement('ul');
+                                            subUl.style.paddingLeft = '15px'; // Indent H3
+                                            lastH2Li.appendChild(subUl);
+                                        }
+                                        subUl.appendChild(li);
+                                    } else {
+                                        // Orphan H3 (before any H2), treating as top level for now or append to main
+                                        ul.appendChild(li);
+                                    }
+                                }
+                            });
+
+                            if (headers.length > 0) {
+                                toc.appendChild(ul);
+                            } else {
+                                toc.innerHTML += "<div style='opacity:0.5; padding-left: 15px;'>No outline</div>";
+                            }
+                        });
+
+                        function toggleMobileMenu() {
+                            const container = document.getElementById('sidebar-container');
+                            container.classList.toggle('open');
+                        }
+                    </script>
+                </div>
+
+                <div class="content-panel">
+                    {{ content }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
