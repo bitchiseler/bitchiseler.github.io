@@ -1,11 +1,13 @@
 ---
-title: "IDE Style Three Panel Theme"
+title: "Triptych"
 category: "app"
 ---
 
+# Triptych — IDE-Style Three-Panel Jekyll Theme
+
 ## Overview
 
-**IDE Style Three Panel Theme** is a Jekyll theme inspired by the classic  
+**Triptych** is a Jekyll theme inspired by the classic  
 **three-panel layout of modern IDEs** such as VS Code, IntelliJ, and Eclipse.
 
 The layout is optimized for documentation-heavy and text-centric websites:
