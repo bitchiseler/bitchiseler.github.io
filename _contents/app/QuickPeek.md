@@ -1,3 +1,8 @@
+---
+title: "QuickPeek"
+category: "app"
+---
+
 # QuickPeek – macOS Image Viewer
 
 QuickPeek is a simple and fast image viewer designed for macOS and Apple hardware.
